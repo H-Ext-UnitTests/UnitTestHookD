@@ -501,7 +501,7 @@ export extern(C) void EXTOnKillMultiplier(PlayerInfo killer, uint multiplier) {
 }
 
 // Enabled in 0.5.3.4
-export extern(C) bool EXTOnVehicleRespawnProcess(s_ident obj_id, s_object* cur_object, objManaged* managedObj, bool isManaged) {
+export extern(C) VEHICLE_RESPAWN EXTOnVehicleRespawnProcess(s_ident obj_id, s_object* cur_object, objManaged* managedObj, bool isManaged) {
     VARIANT[5] vars;
     wchar[INIFILEVALUEMAX] output;
     wstring index;
@@ -516,11 +516,11 @@ export extern(C) bool EXTOnVehicleRespawnProcess(s_ident obj_id, s_object* cur_o
         pIUtil.m_formatVariantW(output.ptr, INIFILEVALUEMAX, "ModelTag: {0:08X}, World X: {1:f}, Y: {2:f}, Z: {3:f}, isManaged: {4:d}"w.ptr, vars.length, vars.ptr);
         pICIniFile.m_value_set(pICIniFile, HookNames[21].ptr, index.ptr, output.ptr);
     }
-    return 1; //If set to false, it is managed by you. True for default.
+    return VEHICLE_RESPAWN.DEFAULT; //Look in VEHICLE_RESPAWN enum for available options to return.
 }
 
 // Enabled in 0.5.3.4
-export extern(C) bool EXTOnObjectDeleteAttempt(s_ident obj_id, s_object* cur_object, int curTicks, bool isManaged) {
+export extern(C) OBJECT_ATTEMPT EXTOnObjectDeleteAttempt(s_ident obj_id, s_object* cur_object, int curTicks, bool isManaged) {
     VARIANT[3] vars;
     wchar[INIFILEVALUEMAX] output;
     wstring index;
@@ -533,7 +533,7 @@ export extern(C) bool EXTOnObjectDeleteAttempt(s_ident obj_id, s_object* cur_obj
         pIUtil.m_formatVariantW(output.ptr, INIFILEVALUEMAX, "ModelTag: {0:08X}, Current Ticks: {1:d}, isManaged: {2:d}"w.ptr, vars.length, vars.ptr);
         pICIniFile.m_value_set(pICIniFile, HookNames[22].ptr, index.ptr, output.ptr);
     }
-    return 1; //If set to false, it is managed by you. True for default.
+    return OBJECT_ATTEMPT.DEFAULT; //Look in OBJECT_ATTEMPT enum for available options to return.
 }
 
 export extern(C) bool EXTOnObjectDamageLookupProcess(objDamageInfo* damageInfo, s_ident* obj_recv, bool* allowDamage, bool isManaged) {
@@ -663,7 +663,7 @@ export extern(C) void EXTOnMapReset() {
 
 // Featured in 0.5.3.0 and newer
 // Enabled in 0.5.3.4
-export extern(C) bool EXTOnObjectCreateAttempt(PlayerInfo plOwner, objCreationInfo object_creation, objCreationInfo* change_object, bool isOverride) {
+export extern(C) OBJECT_ATTEMPT EXTOnObjectCreateAttempt(PlayerInfo plOwner, objCreationInfo object_creation, objCreationInfo* change_object, bool isOverride) {
     VARIANT[6] vars;
     wchar[INIFILEVALUEMAX] output;
     wstring index;
@@ -679,7 +679,7 @@ export extern(C) bool EXTOnObjectCreateAttempt(PlayerInfo plOwner, objCreationIn
         pIUtil.m_formatVariantW(output.ptr, INIFILEVALUEMAX, "map_id: {0:08X}, parent_id: {1:08X}, pos.x: {2:f}, pos.y: {3:f}, pos.z: {4:f}, isOverride: {5:d}"w.ptr, vars.length, vars.ptr);
         pICIniFile.m_value_set(pICIniFile, HookNames[31].ptr, index.ptr, output.ptr);
     }
-    return 0; //Set to true will override. False for default.
+    return OBJECT_ATTEMPT.DEFAULT; //Look in OBJECT_ATTEMPT enum for available options to return.
 }
 
 //Featured in 0.5.3.2 and newer
