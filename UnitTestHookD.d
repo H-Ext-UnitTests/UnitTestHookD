@@ -520,7 +520,7 @@ export extern(C) VEHICLE_RESPAWN EXTOnVehicleRespawnProcess(s_ident obj_id, s_ob
 }
 
 // Enabled in 0.5.3.4
-export extern(C) OBJECT_ATTEMPT EXTOnObjectDeleteAttempt(s_ident obj_id, s_object* cur_object, int curTicks, bool isManaged) {
+export extern(C) OBJECT_ATTEMPT EXTOnObjectDeleteAttempt(s_ident obj_id, s_object* cur_object, int curTicks) {
     VARIANT[3] vars;
     wchar[INIFILEVALUEMAX] output;
     wstring index;
